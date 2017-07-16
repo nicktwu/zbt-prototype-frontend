@@ -38,7 +38,7 @@ class MidnightsPoints extends Component {
           return (
             <AccountPanel key={account.id} title="Points"
               zebe={account['zebe']}
-              balance={account['balance']}/>
+              balance={account['balance'].toFixed(2)}/>
             )
           }
         )}

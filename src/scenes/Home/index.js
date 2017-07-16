@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap'
+import { Jumbotron } from 'react-bootstrap'
 
 class Home extends Component {
   render() {
     return (
-      <Panel>
-        Hello World!
-      </Panel>
+      <Jumbotron>
+        <h2>Hello.</h2>
+        <p>I'm here to make your life easier.</p>
+      </Jumbotron>
     )
   }
 }

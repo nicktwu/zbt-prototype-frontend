@@ -10,7 +10,8 @@ import {
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 import { Home, MidnightsUser, MidnightsPoints,
   MidnightsWeek, MidnightsAdminDashboard, MidnightsAdminAccounts,
-  MidnightsAdminCreateOne, MidnightsAdminReview,
+  MidnightsAdminCreateOne, MidnightsAdminReview, MidnightsAdminTasks,
+  MidnightsAdminCreateTask, MarketHome, WorkweekHome, WorkweekTickets, WorkweekAdmin
 } from './scenes'
 
 class App extends Component {
@@ -21,7 +22,7 @@ class App extends Component {
           <Navbar>
             <Navbar.Header>
               <Navbar.Brand>
-                ZBT App
+                ZBTodo
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
@@ -30,6 +31,20 @@ class App extends Component {
                 <IndexLinkContainer to="/">
                   <NavItem eventKey={1}>Home</NavItem>
                 </IndexLinkContainer>
+                <LinkContainer to="/market">
+                  <NavItem eventKey={3}>Market</NavItem>
+                </LinkContainer>
+                <NavDropdown eventKey={4} title="Workweek" id="workweekDropdown">
+                  <IndexLinkContainer to="/workweek">
+                    <NavItem eventKey={4.1}>Workweek Home</NavItem>
+                  </IndexLinkContainer>
+                  <LinkContainer to="/workweek/software">
+                    <MenuItem eventKey={4.1}>Software Development</MenuItem>
+                  </LinkContainer>
+                  <LinkContainer to="/workweek/admin">
+                    <MenuItem eventKey={4.2}>Workweek Chair</MenuItem>
+                  </LinkContainer>
+                </NavDropdown>
                 <NavDropdown eventKey={2} title="Midnights" id="midnightsDropdown">
                   <LinkContainer to="/midnights/week">
                     <MenuItem eventKey={2.1}>Midnight Assignments</MenuItem>
@@ -56,6 +71,12 @@ class App extends Component {
             <Route path="/midnights/admin/accounts" component={MidnightsAdminAccounts}/>
             <Route path="/midnights/admin/new_midnight" component={MidnightsAdminCreateOne}/>
             <Route path="/midnights/admin/review" component={MidnightsAdminReview}/>
+            <Route path="/midnights/admin/tasks" component={MidnightsAdminTasks}/>
+            <Route path="/midnights/admin/create_task" component={MidnightsAdminCreateTask}/>
+            <Route exact path="/market/" component={MarketHome}/>
+            <Route exact path="/workweek" component={ WorkweekHome }/>
+            <Route path="/workweek/software" component={ WorkweekTickets }/>
+            <Route path="/workweek/admin" component={ WorkweekAdmin }/>
           </div>
         </div>
       </BrowserRouter>

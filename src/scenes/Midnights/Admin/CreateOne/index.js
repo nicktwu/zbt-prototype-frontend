@@ -72,7 +72,7 @@ class CreateOne extends Component {
       if (task.name === event.target.value) {
         this.setState({
           'task': task.name,
-          'potential': task.value.toString(),
+          'potential': task.value.toFixed(2).toString(),
         })
         return
       }
@@ -115,7 +115,7 @@ class CreateOne extends Component {
     } else {
       errors['pointError']=''
     }
-    body['potential'] = parseInt(this.state.potential,10)
+    body['potential'] = parseFloat(this.state.potential)
     if (error) {
       this.setState(errors);
       return;

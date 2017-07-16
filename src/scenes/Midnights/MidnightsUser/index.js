@@ -20,6 +20,7 @@ class MidnightsUser extends Component {
     this.getDayOfWeek = this.getDayOfWeek.bind(this);
     this.getUrl = this.getUrl.bind(this);
     this.formatDate = this.formatDate.bind(this);
+    this.formatPoints = this.formatPoints.bind(this);
     this.sortByDate = this.sortByDate.bind(this);
   }
 
@@ -70,10 +71,13 @@ class MidnightsUser extends Component {
               let diff = Math.floor((today - date)/(1000*60*60));
               return (diff > 8) && (diff < 32)
             }).sort(this.sortByDate),
-          'midnights':response.midnights.sort(this.sortByDate).map(this.formatDate),
+          'midnights':response.midnights.sort(this.sortByDate).map(this.formatDate).map(this.formatPoints),
+          'reviewed':response.reviewed.sort(this.sortByDate).map(this.formatDate).map(this.formatPoints),
           'account': acc,
-          'types': ['date', 'task', 'zebe', 'potential', 'note'],
-          'header': ['Date', 'Task', 'Assigned', 'Points', 'Note'],
+          'types': ['date', 'task', 'potential', 'note'],
+          'header': ['Date', 'Task', 'Points', 'Note'],
+          'reviewtypes': ['date', 'task', 'potential', 'awarded', 'feedback'],
+          'reviewheader': ['Date', 'Task', 'Potential Points', 'Awarded Points', 'Feedback'],
           'loaded': true,
           'goal': (acc['goal'] ? (acc.goal > 0 ? acc.goal : -1) : -1),
         });
@@ -86,6 +90,14 @@ class MidnightsUser extends Component {
     date = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
     midnight.date = this.getDayOfWeek(date.getDay()) + ' (' + (date.getMonth()+1)+'/'+date.getDate()+'/'+date.getFullYear() + ')';
     return midnight;
+  }
+
+  formatPoints(midnight) {
+    let newPoints = midnight.potential.toFixed(2);
+    let newAwarded = midnight.awarded.toFixed(2);
+    midnight.potential = newPoints;
+    midnight.awarded = newAwarded;
+    return midnight
   }
 
   getUrl() {
@@ -103,17 +115,23 @@ class MidnightsUser extends Component {
           { this.state.account ?
             <AccountPanel zebe={this.state.account['zebe']}
               title = "Midnight Points"
-              balance={this.state.account['balance'] }
+              balance={this.state.account['balance'].toFixed(2) }
               semester={this.state.account['semester']}
               goal={ this.state.goal > -1 ? this.state.goal : 0 }/>
             : null
           }
-
           <Panel header={<h2>Midnights Tonight</h2>}>
             { this.state.recent.length > 0 ?
               <MidnightsList midnights={this.state.recent}
                 types={ this.state.types }
                 header={ this.state.header }/> : <p> No midnights today! </p>
+            }
+          </Panel>
+          <Panel header={<h2>Recently Reviewed</h2>}>
+            { this.state.reviewed.length > 0 ?
+              <MidnightsList midnights={this.state.reviewed}
+                types={this.state.reviewtypes}
+                header={this.state.reviewheader}/> : <p> No recently reviewed midnights.</p>
             }
           </Panel>
           <Panel header={<h2>My Midnights This Week</h2>}>

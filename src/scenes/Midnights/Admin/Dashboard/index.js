@@ -61,6 +61,8 @@ class Dashboard extends Component {
                   <LinkContainer to='/midnights/admin/accounts'><a><li>Set up midnights accounts</li></a></LinkContainer>
                   <LinkContainer to='/midnights/admin/new_midnight'><a><li>Assign a new midnight</li></a></LinkContainer>
                   <LinkContainer to='/midnights/admin/review'><a><li>Review completed midnights</li></a></LinkContainer>
+                  <LinkContainer to='/midnights/admin/create_task'><a><li>Create a new type of midnight</li></a></LinkContainer>
+                  <LinkContainer to='/midnights/admin/tasks'><a><li>Edit the midnight defaults</li></a></LinkContainer>
                 </ul>
               </Panel>
             </div>

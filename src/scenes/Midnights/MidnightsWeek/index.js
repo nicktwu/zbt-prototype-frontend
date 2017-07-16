@@ -62,7 +62,7 @@ class MidnightsWeek extends Component {
           'loaded': true,
         });
       }
-    }).catch((err)=>{this.setState({'error':true})});
+    }).catch((err)=>{console.log(err);this.setState({'error':true})});
   }
 
   sortByDate(a, b) {
